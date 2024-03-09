@@ -17,9 +17,12 @@ dependencies:
   vue:
     specifier: ^3.3.0
     version: 3.4.21(typescript@5.4.2)
+  vue-i18n:
+    specifier: '9'
+    version: 9.10.1(vue@3.4.21)
   vuetify:
     specifier: ^3.0.0
-    version: 3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue@3.4.21)
+    version: 3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue-i18n@9.10.1)(vue@3.4.21)
 
 devDependencies:
   '@babel/types':
@@ -366,6 +369,24 @@ packages:
   /@humanwhocodes/object-schema@2.0.2:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
     dev: true
+
+  /@intlify/core-base@9.10.1:
+    resolution: {integrity: sha512-0+Wtjj04GIyglh5KKiNjRwgjpHrhqqGZhaKY/QVjjogWKZq5WHROrTi84pNVsRN18QynyPmjtsVUWqFKPQ45xQ==}
+    engines: {node: '>= 16'}
+    dependencies:
+      '@intlify/message-compiler': 9.10.1
+      '@intlify/shared': 9.10.1
+
+  /@intlify/message-compiler@9.10.1:
+    resolution: {integrity: sha512-b68UTmRhgZfswJZI7VAgW6BXZK5JOpoi5swMLGr4j6ss2XbFY13kiw+Hu+xYAfulMPSapcHzdWHnq21VGnMCnA==}
+    engines: {node: '>= 16'}
+    dependencies:
+      '@intlify/shared': 9.10.1
+      source-map-js: 1.0.2
+
+  /@intlify/shared@9.10.1:
+    resolution: {integrity: sha512-liyH3UMoglHBUn70iCYcy9CQlInx/lp50W2aeSxqqrvmG+LDj/Jj7tBJhBoQL4fECkldGhbmW0g2ommHfL6Wmw==}
+    engines: {node: '>= 16'}
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
@@ -742,7 +763,6 @@ packages:
 
   /@vue/devtools-api@6.6.1:
     resolution: {integrity: sha512-LgPscpE3Vs0x96PzSSB4IGVSZXZBZHpfxs+ZA1d+VEPwHdOXowy/Y2CsvCAIFrf+ssVU1pD1jidj505EpUnfbA==}
-    dev: true
 
   /@vue/eslint-config-typescript@12.0.0(eslint-plugin-vue@9.22.0)(eslint@8.57.0)(typescript@5.4.2):
     resolution: {integrity: sha512-StxLFet2Qe97T8+7L8pGlhYBBr8Eg05LPuTDVopQV6il+SK6qqom59BA/rcFipUef2jD8P2X44Vd8tMFytfvlg==}
@@ -823,7 +843,7 @@ packages:
     dependencies:
       upath: 2.0.1
       vue: 3.4.21(typescript@5.4.2)
-      vuetify: 3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue@3.4.21)
+      vuetify: 3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue-i18n@9.10.1)(vue@3.4.21)
 
   /acorn-jsx@5.3.2(acorn@8.11.3):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2882,7 +2902,7 @@ packages:
       upath: 2.0.1
       vite: 5.1.5(@types/node@20.11.25)(sass@1.71.1)
       vue: 3.4.21(typescript@5.4.2)
-      vuetify: 3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue@3.4.21)
+      vuetify: 3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue-i18n@9.10.1)(vue@3.4.21)
     transitivePeerDependencies:
       - supports-color
 
@@ -2955,6 +2975,17 @@ packages:
       - supports-color
     dev: true
 
+  /vue-i18n@9.10.1(vue@3.4.21):
+    resolution: {integrity: sha512-37HVJQZ/pZaRXGzFmmMomM1u1k7kndv3xCBPYHKEVfv5W3UVK67U/TpBug71ILYLNmjHLHdvTUPRF81pFT5fFg==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@intlify/core-base': 9.10.1
+      '@intlify/shared': 9.10.1
+      '@vue/devtools-api': 6.6.1
+      vue: 3.4.21(typescript@5.4.2)
+
   /vue-router@4.3.0(vue@3.4.21):
     resolution: {integrity: sha512-dqUcs8tUeG+ssgWhcPbjHvazML16Oga5w34uCUmsk7i0BcnskoLGwjpa15fqMr2Fa5JgVBrdL2MEgqz6XZ/6IQ==}
     peerDependencies:
@@ -2998,7 +3029,7 @@ packages:
       '@vue/shared': 3.4.21
       typescript: 5.4.2
 
-  /vuetify@3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue@3.4.21):
+  /vuetify@3.5.8(typescript@5.4.2)(vite-plugin-vuetify@2.0.2)(vue-i18n@9.10.1)(vue@3.4.21):
     resolution: {integrity: sha512-8nGS+lKejZkev55HFwIfsRt+9fOqbeDQNmXxfmLKAlnUT8FtynVwbjAwHMtX/OQAQ3ZwRaR1ptqQQmx3OgxzbQ==}
     engines: {node: ^12.20 || >=14.13}
     peerDependencies:
@@ -3020,6 +3051,7 @@ packages:
       typescript: 5.4.2
       vite-plugin-vuetify: 2.0.2(vite@5.1.5)(vue@3.4.21)(vuetify@3.5.8)
       vue: 3.4.21(typescript@5.4.2)
+      vue-i18n: 9.10.1(vue@3.4.21)
 
   /webpack-sources@3.2.3:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}
