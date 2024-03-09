@@ -13,15 +13,8 @@
   pointer-events: none;
 }
 
-.slide-bottom {
-	        animation: slide-bottom 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530)  both;
-}
-.slide-top {
-	        animation: slide-top 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530)  both;
-}
-
-.bounce-in-top {
-	animation: bounce-in-top 1.1s both;
+.fade-in-top {
+	animation: fade-in-top 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .tracking-in-expand {
@@ -35,58 +28,16 @@
  * w: http://animista.net, t: @cssanimista
  * ---------------------------------------------- */
 
-@keyframes slide-top {
+ @keyframes fade-in-top {
   0% {
-            transform: translateY(-100px);
-  }
-  100% {
-            transform: translateY(0);
-  }
-}
-
-@keyframes slide-bottom {
-  0% {
-            transform: translateY(0);
-  }
-  100% {
-            transform: translateY(100px);
-  }
-}
-
- @keyframes bounce-in-top {
-  0% {
-    transform: translateY(-500px);
-    animation-timing-function: ease-in;
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
     opacity: 0;
   }
-  38% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-    opacity: 1;
-  }
-  55% {
-    transform: translateY(-65px);
-    animation-timing-function: ease-in;
-  }
-  72% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  81% {
-    transform: translateY(-28px);
-    animation-timing-function: ease-in;
-  }
-  90% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  95% {
-    transform: translateY(-8px);
-    animation-timing-function: ease-in;
-  }
   100% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
   }
 }
 

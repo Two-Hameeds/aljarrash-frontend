@@ -163,12 +163,7 @@
         </v-main>
       </v-layout>
     </v-card>
-    <v-footer class="footer">
-      <div>Developers: Abdulhamid Alabbad & Abdulhamid Alhofufy</div>
-      <div>
-        AL Jarrash - All Rights Reserved © {{ new Date().getFullYear() }}
-      </div></v-footer
-    >
+    <Footer />
   </v-app>
 </template>
 
@@ -183,6 +178,7 @@ import AddAttachment from "@/components/AddAttachment.vue";
 import Attachments from "@/components/Attachments.vue";
 import MessageCount from "@/components/Comments.vue";
 import AddProject from "@/components/AddProject.vue";
+import Footer from "@/components/Footer.vue";
 import { useStore } from "@/store/app";
 import { useI18n } from "vue-i18n";
 
@@ -611,14 +607,6 @@ body {
   background-color: #6293ea;
 }
 
-.footer {
-  font-size: 0.7rem;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(29, 29, 29) !important;
-  color: rgb(227, 227, 227) !important;
-  border: solid 3px #26282b;
-}
 /* Spinner */
 .pl,
 .pl__worm {

@@ -7,7 +7,7 @@
           style="margin: 5px"
           icon="mdi-paperclip-plus"
           @click="dialog = true"
-          :class="{'bounce-in-top': triggerAnimation, 'hidden': !triggerAnimation}"
+          :class="{'fade-in-top': triggerAnimation, 'hidden': !triggerAnimation}"
         />
       </template>
     </v-tooltip>

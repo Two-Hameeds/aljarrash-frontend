@@ -8,7 +8,7 @@
           icon="mdi-file-move-outline"
           @click="moveDialog = true"
           :class="{
-            'bounce-in-top': triggerAnimation,
+            'fade-in-top': triggerAnimation,
             hidden: !triggerAnimation,
           }"
         />
@@ -65,7 +65,7 @@
           icon="mdi-content-copy"
           @click="copyDialog = true"
           :class="{
-            'bounce-in-top': triggerAnimation,
+            'fade-in-top': triggerAnimation,
             hidden: !triggerAnimation,
           }"
         />
@@ -124,7 +124,7 @@
           icon="mdi-delete"
           @click="deleteProj"
           :class="{
-            'bounce-in-top': triggerAnimation,
+            'fade-in-top': triggerAnimation,
             hidden: !triggerAnimation,
           }"
         />
@@ -346,9 +346,9 @@ const copyTo = async () => {
       // Handle any errors that occurred during the fetch operations...
       alert(error);
     } finally {
-      updateGrid();
       loading.value = false;
       copyDialog.value = false;
+      updateGrid();
       selectedMoveStage.value = null;
     }
   }
