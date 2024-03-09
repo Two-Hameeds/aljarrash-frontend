@@ -8,6 +8,12 @@ dependencies:
   '@mdi/font':
     specifier: 7.0.96
     version: 7.0.96
+  ag-grid-community:
+    specifier: ^31.1.1
+    version: 31.1.1
+  ag-grid-vue3:
+    specifier: ^31.1.1
+    version: 31.1.1(vue@3.4.21)
   core-js:
     specifier: ^3.34.0
     version: 3.36.0
@@ -858,6 +864,19 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
+
+  /ag-grid-community@31.1.1:
+    resolution: {integrity: sha512-tiQZ7VQ07yJScTMIQpaYoUMPgiyXMwYDcwTxe4riRrcYGTg0e258XEihoPUZFejR60P1fYWMxdJaR2JUnyhGrg==}
+    dev: false
+
+  /ag-grid-vue3@31.1.1(vue@3.4.21):
+    resolution: {integrity: sha512-GjR4/6JUWQ0VsdmcxSN5ks1vH+wB7lLjX1CbskPqNfD69/fb9l7Eg2oGAgqNJo8b87W87jzhg9RguOx5bDpsZQ==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      ag-grid-community: 31.1.1
+      vue: 3.4.21(typescript@5.4.2)
+    dev: false
 
   /ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}

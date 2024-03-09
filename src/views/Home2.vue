@@ -234,6 +234,7 @@ const project_types = ["", "تصميم جديد", "اضافة", "ترميم"];
 
 const gridApi = ref<any>();
 
+// store the api for later use
 const onGridReady = (params: any) => {
   gridApi.value = params.api;
 };
@@ -389,19 +390,9 @@ const gridOptions: GridOptions<any> = {
       cellDataType: "number",
     },
   ],
-};
 
-console.log(gridOptions.columnDefs);
+  // EVENTS
 
-const autoSizeAll = (skipHeader: boolean) => {
-  const allColumnIds: string[] = [];
-  if (gridApi) {
-    gridOptions.api?.getColumnDefs()?.forEach((column: any) => {
-      allColumnIds.push(column.getId());
-    });
-
-    gridApi.value.autoSizeColumns(allColumnIds, skipHeader);
-  }
 };
 
 const defaultColDef = {
@@ -535,24 +526,25 @@ onMounted(() => {
     )
     .then((filteredRowData) => (rowData.value = filteredRowData))
     .then(() => store.setSelectedStage(selectedStage))
-    .finally(() => overlay.value = false);
+    .finally(() => {
+      overlay.value = false;
+      gridApi.value.autoSizeAllColumns(false);
+    });
 });
 
 const onSelectionChanged = () => {
-  const selectedNodes = gridOptions?.api?.getSelectedNodes() || [];
-  // isSelectedRows.value = selectedNodes.length > 0;
-  // isSingleSelect.value = selectedNodes.length === 1;
-  const selectedRows = selectedNodes.map((node) => node.data);
-  const selectedIds = selectedNodes.map((node) => node.data.id);
-  const selectedNames = selectedNodes.map((node) => node.data.project_name);
+    const selectedNodes = gridApi.value.getSelectedNodes() || [];
+    const selectedRows = selectedNodes.map((node: any) => node.data);
+    const selectedIds = selectedNodes.map((node: any) => node.data.id);
+    const selectedNames = selectedNodes.map((node: any) => node.data.project_name);
 
-  if (selectedNodes.length > 0) {
-    store.setSelectedRows(selectedRows);
-    store.setSelectedIDs(selectedIds);
-    store.setSelectedNames(selectedNames);
-  } else {
-    store.setSelectedIDs([]);
-  }
+    if (selectedNodes.length > 0) {
+      store.setSelectedRows(selectedRows);
+      store.setSelectedIDs(selectedIds);
+      store.setSelectedNames(selectedNames);
+    } else {
+      store.setSelectedIDs([]);
+    }
 };
 
 watch(selectedStage, (newValue, oldValue) => {
@@ -572,7 +564,10 @@ watch(selectedStage, (newValue, oldValue) => {
     )
     .then((filteredRowData) => (rowData.value = filteredRowData))
     .then(() => store.setSelectedStage(selectedStage))
-    .finally(() => overlay.value = false);
+    .finally(() => {
+      overlay.value = false;
+      gridApi.value.autoSizeAllColumns(false);
+    });
 
   setTimeout(() => {
     animateStageText.value = false;

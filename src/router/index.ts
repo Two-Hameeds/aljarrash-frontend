@@ -6,12 +6,12 @@ import Test from '@/views/Test.vue'
 
 const routes = [
   {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    path: '/',
+    name: 'Home2',
+    component: Home2
   },
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
