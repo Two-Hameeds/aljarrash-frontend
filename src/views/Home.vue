@@ -206,8 +206,6 @@ import { useStore } from "@/store/app";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
-// To access AG Grid APIs => gridOptions.api.method()
-
 const { t, locale } = useI18n();
 const API_URL = "https://aljarrash-backend.onrender.com/api/";
 const getProjects = API_URL + "projects/";
