@@ -11,7 +11,8 @@ export const useStore = defineStore({
     selectedRows: reactive<any[]>([]),
     rowData: reactive({
       value: [],
-    })
+    }),
+    loggedIn: false,
   }),
   actions: {
     setSelectedStage(item: any) {
@@ -47,6 +48,9 @@ export const useStore = defineStore({
     },
     setSelectedRows(newSelectedRows: any[]) {
       this.selectedRows = [...newSelectedRows];
+    },
+    setLoggedIn(newLoggedIn: boolean) {
+      this.loggedIn = newLoggedIn;
     },
   },
 });

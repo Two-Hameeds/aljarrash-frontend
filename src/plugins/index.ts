@@ -86,6 +86,7 @@ const messages = {
 
       close: 'Close',
       ok: 'Ok',
+      login: 'Login',
       fileType: 'File Type',
       fileInput: 'Choose File',
       comment: 'Comment',
@@ -174,6 +175,7 @@ const messages = {
 
       close: 'اغلاق',
       ok: 'موافق',
+      login: 'تسجيل الدخول',
       fileType: 'نوع الملف',
       fileInput: 'اختر ملفاً',
       comment: 'تعليق',
