@@ -244,8 +244,11 @@ const moveToRules = [
   },
 ];
 
+let myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${store.token}`);
+
 const updateGrid = () => {
-  fetch("https://aljarrash-backend.onrender.com/api/projects/")
+  fetch("https://aljarrash-backend.onrender.com/api/projects/", {headers: myHeaders})
     .then((result) => result.json())
     .then((remoteRowData) =>
       remoteRowData.filter((proj: any) => proj.stage == store.selectedStageID)
@@ -268,6 +271,7 @@ async function fetchData(type?: string) {
       method: "PUT",
       body: formdata,
       redirect: "follow",
+      headers: myHeaders,
     };
 
     const store = useStore();
@@ -300,19 +304,16 @@ const moveTo = () => {
 };
 
 const copyTo = async () => {
+
   if (selectedMoveStage.value) {
     loading.value = true;
     overlay.value = true;
     const copyData = [...store.selectedRows];
     copyData.map(project => project.stage = selectedMoveStage.value);
-
+    
   // need to itrate to update raw data
-  let myHeaders = new Headers();
-  myHeaders.append("content-type", "application/json");
-
   let requestOptions: any = {
     method: "POST",
-    headers: myHeaders,
     body: '',
     redirect: "follow",
   }

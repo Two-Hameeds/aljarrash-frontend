@@ -86,7 +86,7 @@ devDependencies:
     specifier: ^0.7.0
     version: 0.7.0(vue-router@4.3.0)(vue@3.4.21)
   vite:
-    specifier: ^5.0.0
+    specifier: ^5.1.5
     version: 5.1.5(@types/node@20.11.25)(sass@1.71.1)
   vite-plugin-vue-layouts:
     specifier: ^0.10.0

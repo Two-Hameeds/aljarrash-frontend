@@ -212,9 +212,6 @@ const overlay = ref(false);
 const router = useRouter();
 
 onBeforeMount(() => {
-  if (!store.loggedIn) {
-    router.push({ path: "/login" });
-  }
   autoSizeStrategy.value = {
     type: "fitCellContents",
   };
@@ -594,6 +591,9 @@ const gridOptions: GridOptions<any> = {
   // EVENTS
 };
 
+let myHeaders = new Headers();
+myHeaders.append("Authorization", `Token ${store.token}`);
+
 const defaultColDef = {
   sortable: true,
   filter: true,
@@ -607,6 +607,7 @@ const defaultColDef = {
 
     let requestOptions: RequestInit = {
       method: "PUT",
+      headers: myHeaders,
       body: formdata,
       redirect: "follow",
     };
@@ -711,7 +712,7 @@ const stagesIDs = {
 
 onMounted(() => {
   overlay.value = true;
-  fetch(getProjects)
+  fetch(getProjects, {headers: myHeaders})
     .then((result) => result.json())
     .then((remoteRowData) =>
       remoteRowData.filter(
@@ -753,7 +754,7 @@ watch(selectedStage, (newValue, oldValue) => {
   animateStageText.value = true;
   // gridOptions.api?.showLoadingOverlay();
   overlay.value = true;
-  fetch(getProjects)
+  fetch(getProjects, {headers: myHeaders})
     .then((result) => result.json())
     .then((remoteRowData) =>
       remoteRowData.filter(

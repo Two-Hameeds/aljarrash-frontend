@@ -123,6 +123,7 @@ const login = () => {
       // need to use  Vuex store or Vue 3's provide/inject API to store the snack and add it in App.vue
       // store.commit('setSnackbar', { show: true, text: 'Welcome to the system' });
       store.setLoggedIn(true);
+      store.setToken("ffee83e1d8d8c325152ed108bed0266cda6ee9e9");
       router.push({ path: "/" });
     } else {
       snackbarText.value = "Invalid username or password";

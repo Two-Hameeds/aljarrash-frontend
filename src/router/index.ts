@@ -28,18 +28,18 @@ const router = createRouter({
   routes,
 })
 
-// router.beforeEach((to, from, next) => {
-//   const authStore = useStore(); // Assign the useAuthStore function to the authStore variable
-
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (!authStore.loggedIn) {
-//       next({ name: 'login' });
-//     } else {
-//       next();
-//     }
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach(async (to) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const store = useStore();
+  
+  if (authRequired && !store.loggedIn) {
+      return '/login';
+  }
+  else if (!authRequired && store.loggedIn) {
+      return '/';
+  }
+});
 
 export default router

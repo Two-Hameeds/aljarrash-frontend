@@ -5,15 +5,30 @@ import { reactive } from "vue";
 export const useStore = defineStore({
   id: 'main',
   state: () => ({
-    selectedStageID: null,
+    selectedStageID: 0,
     selectedIDs: reactive<number[]>([]),
     selectedNames: reactive<string[]>([]),
     selectedRows: reactive<any[]>([]),
     rowData: reactive({
       value: [],
     }),
-    loggedIn: false,
+    loggedIn: localStorage.getItem('loggedIn') === 'true' ? true : false,
+    token: localStorage.getItem('token') || '',
   }),
+  getters: {  
+    // Getters are like computed properties but for stores
+    // you need to reuse selectedRows to get selectedIDs and selectedNames
+
+    // getSelectedStageID(): number {
+    //   return this.selectedStageID;
+    // },
+    // getSelectedIDs(): number[] {
+    //   return this.selectedIDs;
+    // },
+    // getSelectedNames(): string[] {
+    //   return this.selectedNames;
+    // },
+  },
   actions: {
     setSelectedStage(item: any) {
       const stagesIDs: any = {
@@ -50,6 +65,11 @@ export const useStore = defineStore({
     },
     setLoggedIn(newLoggedIn: boolean) {
       this.loggedIn = newLoggedIn;
+      localStorage.setItem('loggedIn', newLoggedIn.toString());
+    },
+    setToken(newToken: string) {
+      this.token = newToken;
+      localStorage.setItem('token', newToken);
     },
   },
 });
