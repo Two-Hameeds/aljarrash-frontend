@@ -44,77 +44,72 @@
         >
           <v-list-item
             prepend-icon="mdi-brush-outline"
-            :title="$t('sketch')"
+            :title="$t('stage.sketch')"
             value="sketch"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-file-find"
-            :title="$t('sketch_review')"
+            :title="$t('stage.sketch_review')"
             value="sketch_review"
           ></v-list-item>
           <v-list-item
-            prepend-icon="mdi-pillar"
-            :title="$t('approve_before_columns')"
-            value="approve_before_columns"
-          ></v-list-item>
-          <v-list-item
             prepend-icon="mdi-clock-start"
-            :title="$t('awaiting_client_approval')"
+            :title="$t('stage.awaiting_client_approval')"
             value="awaiting_client_approval"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-pencil-ruler"
-            :title="$t('execution_stage')"
+            :title="$t('stage.execution_stage')"
             value="execution_stage"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-tab-search"
-            :title="$t('autocad_review')"
+            :title="$t('stage.autocad_review')"
             value="autocad_review"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-printer"
-            :title="$t('ready_to_print')"
+            :title="$t('stage.ready_to_print')"
             value="ready_to_print"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-signature-freehand"
-            :title="$t('validate_sign_review_copy')"
+            :title="$t('stage.validate_sign_review_copy')"
             value="validate_sign_review_copy"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-tooltip-check-outline"
-            :title="$t('ready_to_collect')"
+            :title="$t('stage.ready_to_collect')"
             value="ready_to_collect"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-hand-extended-outline"
-            :title="$t('client_received_copy')"
+            :title="$t('stage.client_received_copy')"
             value="client_received_copy"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-file-edit-outline"
-            :title="$t('edit_client_notes')"
+            :title="$t('stage.edit_client_notes')"
             value="edit_client_notes"
           ></v-list-item>
           <v-list-item
+            prepend-icon="mdi-license"
+            :title="$t('stage.license_issuance')"
+            value="license_issuance"
+          ></v-list-item>
+          <v-list-item
             prepend-icon="mdi-check-outline"
-            :title="$t('ready_for_final_receipt')"
+            :title="$t('stage.ready_for_final_receipt')"
             value="ready_for_final_receipt"
           ></v-list-item>
           <v-list-item
-            prepend-icon="mdi-timer-sand"
-            :title="$t('awaiting_completion_of_plans')"
-            value="awaiting_completion_of_plans"
-          ></v-list-item>
-          <v-list-item
             prepend-icon="mdi-clipboard-check-outline"
-            :title="$t('completed_projects')"
+            :title="$t('stage.completed_projects')"
             value="completed_projects"
           ></v-list-item>
           <v-list-item
             prepend-icon="mdi-sleep"
-            :title="$t('inactive_projects')"
+            :title="$t('stage.inactive_projects')"
             value="inactive_projects"
           ></v-list-item>
         </v-list>
@@ -125,7 +120,7 @@
           style="text-align: center; padding: 5px 0"
           :class="{ 'tracking-in-expand': animateStageText }"
         >
-          {{ $t(selectedStage[0]) }} -
+          {{ $t('stage.' + selectedStage[0]) }} -
           {{ rowData.value.length }}
         </h2>
         <div style="display: flex; align-items: center">
@@ -700,19 +695,18 @@ const rowData = store.rowData;
 const stagesIDs = {
   sketch: 1,
   sketch_review: 2,
-  approve_before_columns: 3,
-  awaiting_client_approval: 4,
-  execution_stage: 5,
-  autocad_review: 6,
-  ready_to_print: 7,
-  validate_sign_review_copy: 8,
-  ready_to_collect: 9,
-  client_received_copy: 10,
-  edit_client_notes: 11,
+  awaiting_client_approval: 3,
+  execution_stage: 4,
+  autocad_review: 5,
+  ready_to_print: 6,
+  validate_sign_review_copy: 7,
+  ready_to_collect: 8,
+  client_received_copy: 9,
+  edit_client_notes: 10,
+  license_issuance: 11,
   ready_for_final_receipt: 12,
-  awaiting_completion_of_plans: 13,
-  completed_projects: 14,
-  inactive_projects: 15,
+  completed_projects: 13,
+  inactive_projects: 14,
 };
 
 onMounted(() => {

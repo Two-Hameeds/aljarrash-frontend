@@ -186,20 +186,19 @@ const overlay = ref(false);
 // It is also needed to ensure localizations are updated when the language changes
 const items = computed(() => {
   const stages = [
-    { text: t("sketch"), value: 1 },
-    { text: t("sketch_review"), value: 2 },
-    { text: t("approve_before_columns"), value: 3 },
-    { text: t("awaiting_client_approval"), value: 4 },
-    { text: t("execution_stage"), value: 5 },
-    { text: t("autocad_review"), value: 6 },
-    { text: t("ready_to_print"), value: 7 },
-    { text: t("validate_sign_review_copy"), value: 8 },
-    { text: t("ready_to_collect"), value: 9 },
-    { text: t("client_received_copy"), value: 10 },
-    { text: t("edit_client_notes"), value: 11 },
-    { text: t("ready_for_final_receipt"), value: 12 },
-    { text: t("awaiting_completion_of_plans"), value: 13 },
-    { text: t("completed_projects"), value: 14 },
+    { text: t("stage.sketch"), value: 1 },
+    { text: t("stage.sketch_review"), value: 2 },
+    { text: t("stage.awaiting_client_approval"), value: 3 },
+    { text: t("stage.execution_stage"), value: 4 },
+    { text: t("stage.autocad_review"), value: 5 },
+    { text: t("stage.ready_to_print"), value: 6 },
+    { text: t("stage.validate_sign_review_copy"), value: 7 },
+    { text: t("stage.ready_to_collect"), value: 8 },
+    { text: t("stage.client_received_copy"), value: 9 },
+    { text: t("stage.edit_client_notes"), value: 10 },
+    { text: t("stage.license_issuance"), value: 11 },
+    { text: t("stage.ready_for_final_receipt"), value: 12 },
+    { text: t("stage.completed_projects"), value: 13 },
   ];
 
   // Remove current stage from the list of stages if it is not the move dialog
@@ -257,7 +256,7 @@ const updateGrid = () => {
 
 async function fetchData(type?: string) {
   if (type === "delete") {
-    selectedMoveStage.value = 15; // move to inactive stage
+    selectedMoveStage.value = 14; // move to inactive stage
   }
   if (selectedMoveStage.value) {
     loading.value = true;

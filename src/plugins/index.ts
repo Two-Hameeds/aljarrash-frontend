@@ -16,21 +16,22 @@ import type { App } from "vue";
 const messages = {
   en: {
     toolbar_title: "AL Jarrash Engineering Consultants",
-    sketch: "Sketch",
-    sketch_review: "Sketch Review",
-    approve_before_columns: "Approve Before Columns",
-    awaiting_client_approval: "Awaiting Client Approval",
-    execution_stage: "Execution Stage",
-    autocad_review: "AutoCAD Review",
-    ready_to_print: "Ready To Print",
-    validate_sign_review_copy: "Validate & Sign Review Copy",
-    ready_to_collect: "Ready To Collect Review Copy",
-    client_received_copy: "Client Received Review Copy",
-    edit_client_notes: "Edit Client Notes",
-    ready_for_final_receipt: "Ready For Final Receipt",
-    awaiting_completion_of_plans: "Awaiting Completion Of Plans",
-    completed_projects: "Completed Projects",
-    inactive_projects: "Inactive Projects",
+    stage: {
+      sketch: "Sketch",
+      sketch_review: "Sketch Review",
+      awaiting_client_approval: "Awaiting Client Approval",
+      execution_stage: "Execution Stage",
+      autocad_review: "AutoCAD Review",
+      ready_to_print: "Ready To Print",
+      validate_sign_review_copy: "Validate & Sign Review Copy",
+      ready_to_collect: "Ready To Collect Review Copy",
+      client_received_copy: "Client Received Review Copy",
+      edit_client_notes: "Edit Client Notes",
+      license_issuance: "License issuance procedures",
+      ready_for_final_receipt: "Ready For Final Receipt",
+      completed_projects: "Completed Projects",
+      inactive_projects: "Inactive Projects",
+    },
 
     project_name: "Project Name",
     comments: "📩",
@@ -101,21 +102,22 @@ const messages = {
   },
   ar: {
     toolbar_title: "الجراش للاستشارات الهندسية",
-    sketch: "الاسكتش",
-    sketch_review: "مراجعة الاسكتش",
-    approve_before_columns: "الموافقة قبل الاعمدة",
-    awaiting_client_approval: "انتظار موافقة العميل",
-    execution_stage: "مرحلة التنفيذ",
-    autocad_review: "مراجعة الاوتوكاد",
-    ready_to_print: "جاهز للطباعة بعد المراجعة",
-    validate_sign_review_copy: "التدقيق والتوقيع نسخ المراجعة",
-    ready_to_collect: "جاهز للاستلام نسخة المراجعة",
-    client_received_copy: "استلام العميل نسخة المراجعة",
-    edit_client_notes: "تعديل ملاحظات العميل",
-    ready_for_final_receipt: "جاهز للاستلام النهائي",
-    awaiting_completion_of_plans: "بانتظار اكمال المخططات",
-    completed_projects: "مشاريع منتهية",
-    inactive_projects: "مشاريع غير نشطة",
+    stage:{
+      sketch: "الاسكتش",
+      sketch_review: "مراجعة الاسكتش",
+      awaiting_client_approval: "انتظار موافقة العميل",
+      execution_stage: "مرحلة التنفيذ",
+      autocad_review: "مراجعة الاوتوكاد",
+      ready_to_print: "جاهز للطباعة بعد المراجعة",
+      validate_sign_review_copy: "التدقيق والتوقيع نسخ المراجعة",
+      ready_to_collect: "جاهز للاستلام نسخة المراجعة",
+      client_received_copy: "استلام العميل نسخة المراجعة",
+      edit_client_notes: "تعديل ملاحظات العميل",
+      license_issuance: "اجراءات اصدار الرخصة",
+      ready_for_final_receipt: "جاهز للاستلام النهائي",
+      completed_projects: "مشاريع منتهية",
+      inactive_projects: "مشاريع غير نشطة",
+    },
 
     project_name: "اسم المشروع",
     comments: "📩",
@@ -196,7 +198,8 @@ const i18n = createI18n({
 });
 
 export function registerPlugins(app: App) {
-  app.use(vuetify)
+  app
+  .use(vuetify)
   .use(router)
   .use(pinia)
   .use(i18n);
