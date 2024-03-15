@@ -27,9 +27,18 @@
             </v-list-item>
           </v-list>
         </v-menu>
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn icon="mdi-account" v-bind="props"></v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>
+                <v-btn @click="" style="box-shadow: none">Logout</v-btn>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-app-bar>
       <v-navigation-drawer
         v-model="drawer"
