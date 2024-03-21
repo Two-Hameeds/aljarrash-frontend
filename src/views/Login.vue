@@ -24,15 +24,6 @@
             class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
           >
             Password
-
-            <a
-              class="text-caption text-decoration-none text-blue"
-              href="#"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Forgot login password?</a
-            >
           </div>
 
           <v-text-field
@@ -118,19 +109,56 @@ const snackbarText = ref("");
 const login = () => {
   loading.value = true;
 
-  setTimeout(() => {
-    if (username.value === "admin2" && password.value === "admin2") {
-      // need to use  Vuex store or Vue 3's provide/inject API to store the snack and add it in App.vue
-      // store.commit('setSnackbar', { show: true, text: 'Welcome to the system' });
-      store.setLoggedIn(true);
-      store.setToken("ffee83e1d8d8c325152ed108bed0266cda6ee9e9");
-      router.push({ path: "/" });
-    } else {
-      snackbarText.value = "Invalid username or password";
-      snackbar.value = true;
-    }
-    loading.value = false;
-  }, 2000);
+  let myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  let raw = JSON.stringify({
+    username: username.value,
+    password: password.value,
+  });
+
+  let requestOptions: any = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch("https://aljarrash-backend.onrender.com/api/auth/", requestOptions)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result:any) => {
+      if(result.non_field_errors){
+        snackbarText.value = "Invalid username or password";
+        snackbar.value = true;
+      }
+      else if(result.token){
+        store.setLoggedIn(true);
+        store.setToken(result.token);
+        router.push({ path: "/" });
+      }
+    })
+    .catch((error) => {
+      console.log("error", error)
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+
+  // setTimeout(() => {
+  //   if (username.value === "admin2" && password.value === "admin2") {
+  //     // need to use  Vuex store or Vue 3's provide/inject API to store the snack and add it in App.vue
+  //     // store.commit('setSnackbar', { show: true, text: 'Welcome to the system' });
+  //     store.setLoggedIn(true);
+  //     store.setToken("ffee83e1d8d8c325152ed108bed0266cda6ee9e9");
+  //     router.push({ path: "/" });
+  //   } else {
+  //     snackbarText.value = "Invalid username or password";
+  //     snackbar.value = true;
+  //   }
+  //   loading.value = false;
+  // }, 2000);
 };
 </script>
 

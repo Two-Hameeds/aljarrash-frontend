@@ -34,7 +34,7 @@
           <v-list>
             <v-list-item>
               <v-list-item-title>
-                <v-btn @click="" style="box-shadow: none">Logout</v-btn>
+                <v-btn @click="logout" style="box-shadow: none">Logout</v-btn>
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -783,6 +783,12 @@ watch(selectedStage, (newValue, oldValue) => {
     animateStageText.value = false;
   }, 1000);
 });
+
+const logout = () => {
+  store.setLoggedIn(false);
+  store.setToken("");
+  router.push({ path: "/login" });
+}
 </script>
 
 <style>
