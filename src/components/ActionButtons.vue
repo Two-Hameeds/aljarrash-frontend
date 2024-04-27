@@ -181,6 +181,7 @@ const selectedMoveStage = ref<number | null>(null);
 const selectedNames = ref(store.selectedNames);
 const triggerAnimation = ref(false);
 const overlay = ref(false);
+const API_URL = import.meta.env.VITE_API_URL;
 
 // This is important to make sure the computed property is updated when the store.selectedStageID changes
 // It is also needed to ensure localizations are updated when the language changes
@@ -245,10 +246,10 @@ const moveToRules = [
 ];
 
 let myHeaders = new Headers();
-myHeaders.append("Authorization", `Token ${store.token}`);
+// myHeaders.append("Authorization", `Token ${store.token}`);
 
 const updateGrid = () => {
-  fetch("https://aljarrash-backend.onrender.com/api/projects/", {headers: myHeaders})
+  fetch(`${API_URL}/projects/`, {headers: myHeaders})
     .then((result) => result.json())
     .then((remoteRowData) =>
       remoteRowData.filter((proj: any) => proj.stage == store.selectedStageID)
@@ -279,7 +280,7 @@ async function fetchData(type?: string) {
       const results = await Promise.allSettled(
         store.selectedIDs.map((id) =>
           fetch(
-            `https://aljarrash-backend.onrender.com/api/projects/${id}/`,
+            `${API_URL}/projects/${id}/`,
             requestOptions
           )
             .then((response) => response.text())
@@ -324,7 +325,7 @@ const copyTo = async () => {
 
           requestOptions.body = JSON.stringify(project);
           fetch(
-            `https://aljarrash-backend.onrender.com/api/projects/`,
+            `${API_URL}/projects/`,
             requestOptions
           )
           .then((response) => {

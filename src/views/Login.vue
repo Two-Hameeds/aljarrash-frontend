@@ -81,6 +81,7 @@ import { useStore } from "@/store/app";
 // import { useStore } from 'vuex';
 const store = useStore();
 const router = useRouter();
+const API_URL = import.meta.env.VITE_API_URL;
 
 // onMounted(() => {
 //   let visits = sessionStorage.getItem('loginVisits');
@@ -124,7 +125,7 @@ const login = () => {
     redirect: "follow",
   };
 
-  fetch("https://aljarrash-backend.onrender.com/api/auth/", requestOptions)
+  fetch(`${API_URL}/auth/`, requestOptions)
     .then((response) => {
       return response.json();
     })

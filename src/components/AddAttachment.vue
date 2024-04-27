@@ -91,6 +91,7 @@ import { useStore } from "@/store/app";
 
 const store = useStore();
 const { t } = useI18n();
+const API_URL = import.meta.env.VITE_API_URL;
 
 let projectName = ref(store.selectedNames[0]);
 const triggerAnimation = ref(false);
@@ -147,11 +148,11 @@ const addAttachment = () => {
         redirect: 'follow'
       };
 
-      fetch(`https://aljarrash-backend.onrender.com/api/projects/${store.selectedIDs[0]}/?`, requestOptions)
+      fetch(`${API_URL}/projects/${store.selectedIDs[0]}/?`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .then(() => {
-        fetch("https://aljarrash-backend.onrender.com/api/projects/")
+        fetch(`${API_URL}/projects/`)
           .then((result) => result.json())
           .then((remoteRowData) =>
             remoteRowData.filter(
