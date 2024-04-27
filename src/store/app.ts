@@ -19,15 +19,15 @@ export const useStore = defineStore({
     // Getters are like computed properties but for stores
     // you need to reuse selectedRows to get selectedIDs and selectedNames
 
-    // getSelectedStageID(): number {
-    //   return this.selectedStageID;
-    // },
-    // getSelectedIDs(): number[] {
-    //   return this.selectedIDs;
-    // },
-    // getSelectedNames(): string[] {
-    //   return this.selectedNames;
-    // },
+    getSelectedStageID(): number {
+      return this.selectedStageID;
+    },
+    getSelectedIDs(): number[] {
+      return this.selectedIDs;
+    },
+    getSelectedNames(): string[] {
+      return this.selectedNames;
+    },
   },
   actions: {
     setSelectedStage(item: any) {
@@ -49,7 +49,6 @@ export const useStore = defineStore({
       };
 
       this.selectedStageID = stagesIDs[item.value[0]];
-
     },
     setRowData(newRowData: any) {
       this.rowData.value = newRowData;

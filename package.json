@@ -12,6 +12,7 @@
     "ag-grid-community": "^31.1.1",
     "ag-grid-vue3": "^31.1.1",
     "core-js": "^3.34.0",
+    "dotenv": "^16.4.5",
     "roboto-fontface": "*",
     "vue": "^3.3.0",
     "vue-i18n": "9",

@@ -129,7 +129,7 @@
           style="text-align: center; padding: 5px 0"
           :class="{ 'tracking-in-expand': animateStageText }"
         >
-          {{ $t('stage.' + selectedStage[0]) }} -
+          {{ $t("stage." + selectedStage[0]) }} -
           {{ rowData.value.length }}
         </h2>
         <div style="display: flex; align-items: center">
@@ -211,20 +211,14 @@ import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
 const { t, locale } = useI18n();
-const API_URL = "https://aljarrash-backend.onrender.com/api/";
-const getProjects = API_URL + "projects/";
+const API_URL = import.meta.env.VITE_API_URL;
+const getProjects = API_URL + "/projects/";
 const localFile = "../../public/myData.json";
 const autoSizeStrategy = ref<any>(null); // Need to test this
 const animateStageText = ref(false);
 const store = useStore();
 const overlay = ref(false);
 const router = useRouter();
-
-onBeforeMount(() => {
-  autoSizeStrategy.value = {
-    type: "fitCellContents",
-  };
-});
 
 const switchToArabic = () => {
   locale.value = "ar";
@@ -253,7 +247,35 @@ const sketch_design_progress = [
   "الميزانين",
 ];
 const typeof_follow_up = ["", "ورقي", "موقع بلدي"];
-const project_types = ["", "تصميم جديد", "اضافة", "ترميم"];
+const project_types = [
+  t("destruction"),
+  t("restoration"),
+  t("add_floors"),
+  t("addition"),
+  t("new"),
+];
+const use_types = [
+  t("entertaining"),
+  t("agricultural"),
+  t("residential_commercial"),
+  t("commercial"),
+  t("residential"),
+];
+const payment_stages = [
+  t("stage.sketch"),
+  t("stage.sketch_review"),
+  t("stage.awaiting_client_approval"),
+  t("stage.execution_stage"),
+  t("stage.autocad_review"),
+  t("stage.ready_to_print"),
+  t("stage.validate_sign_review_copy"),
+  t("stage.ready_to_collect"),
+  t("stage.client_received_copy"),
+  t("stage.edit_client_notes"),
+  t("stage.license_issuance"),
+  t("stage.ready_for_final_receipt"),
+  t("stage.completed_projects"),
+];
 
 const gridApi = ref<any>();
 
@@ -262,7 +284,7 @@ const onGridReady = (params: any) => {
   gridApi.value = params.api;
 };
 
-const colDef: any = [
+const allColDef: any = [
   {
     headerName: t("project_name"),
     field: "project_name",
@@ -295,51 +317,10 @@ const colDef: any = [
     filter: false,
   },
   { headerName: t("design_eng_name"), field: "design_eng_name" },
-  {
-    headerName: t("architectural_status"),
-    field: "architectural_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  {
-    headerName: t("structural_status"),
-    field: "structural_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  {
-    headerName: t("plumbing_status"),
-    field: "plumbing_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  {
-    headerName: t("electrical_status"),
-    field: "electrical_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
   { headerName: t("client_phone"), field: "client_phone" },
   {
-    headerName: t("sketch_approval_date"),
-    field: "sketch_approval_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("columns_approval_date"),
-    field: "columns_approval_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("typeof_follow_up"),
-    field: "typeof_follow_up",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: typeof_follow_up },
-  },
-  { headerName: t("investor_affiliation"), field: "investor_affiliation" },
-  {
-    headerName: t("project_receipt_date"),
-    field: "project_receipt_date",
+    headerName: t("contract_sign_date"),
+    field: "contract_sign_date",
     cellDataType: "dateString",
   },
   {
@@ -348,37 +329,151 @@ const colDef: any = [
     cellEditor: "agSelectCellEditor",
     cellEditorParams: { values: project_types },
   },
+  {
+    headerName: t("use_type"),
+    field: "use_type",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: use_types },
+  },
+  { headerName: t("project_number"), field: "project_number" },
   { headerName: t("land_number"), field: "land_number" },
+  { headerName: t("plan_number"), field: "plan_number" },
   { headerName: t("land_area"), field: "land_area" },
   { headerName: t("project_location"), field: "project_location" },
-  { headerName: t("project_number"), field: "project_number" },
+  { headerName: t("floor_numbers"), field: "floor_numbers" },
+  { headerName: t("facades_numbers"), field: "facades_numbers" },
   {
-    headerName: t("sketch_design_progress_status"),
-    field: "sketch_design_progress_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: sketch_design_progress },
-  },
-  { headerName: t("structural_eng_name"), field: "structural_eng_name" },
-  {
-    headerName: t("structural_design_start_date"),
-    field: "structural_design_start_date",
+    headerName: t("project_receipt_date"),
+    field: "project_receipt_date",
     cellDataType: "dateString",
   },
   {
-    headerName: t("structural_review"),
-    field: "structural_review",
+    headerName: t("sketch_approval_date"),
+    field: "sketch_approval_date",
+    cellDataType: "dateString",
+  },
+  { headerName: t("investor_affiliation"), field: "investor_affiliation" },
+  {
+    headerName: t("typeof_follow_up"),
+    field: "typeof_follow_up",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: typeof_follow_up },
+  },
+  {
+    headerName: t("columns_approval_date"),
+    field: "columns_approval_date",
+    cellDataType: "dateString",
+  },
+  {
+    headerName: t("modification_price"),
+    field: "modification_price",
+    cellDataType: "number",
+  },
+  { headerName: t("obstacles"), field: "obstacles" },
+  { headerName: t("project_value"), field: "project_value" },
+  { headerName: t("first_payment"), field: "first_payment" },
+  {
+    headerName: t("first_payment_date"),
+    field: "first_payment_date",
+    cellDataType: "dateString",
+  },
+  { headerName: t("second_payment"), field: "second_payment" },
+  {
+    headerName: t("second_payment_date"),
+    field: "second_payment_date",
+    cellDataType: "dateString",
+  },
+  { headerName: t("third_payment"), field: "third_payment" },
+  {
+    headerName: t("third_payment_date"),
+    field: "third_payment_date",
+    cellDataType: "dateString",
+  },
+  {
+    headerName: t("first_payment_stage"),
+    field: "first_payment_stage",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: payment_stages },
+  },
+  {
+    headerName: t("second_payment_stage"),
+    field: "second_payment_stage",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: payment_stages },
+  },
+  {
+    headerName: t("third_payment_stage"),
+    field: "third_payment_stage",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: payment_stages },
+  },
+  {
+    headerName: t("architecture_status"),
+    field: "architecture_status",
     cellEditor: "agSelectCellEditor",
     cellEditorParams: { values: progress_status },
   },
+  { headerName: t("architect_name"), field: "architect_name" },
   {
-    headerName: t("structural_delivery_date"),
-    field: "structural_delivery_date",
+    headerName: t("architect_start_date"),
+    field: "architect_start_date",
     cellDataType: "dateString",
   },
-  { headerName: t("electrical_eng_name"), field: "electrical_eng_name" },
   {
-    headerName: t("electrical_design_start_date"),
-    field: "electrical_design_start_date",
+    headerName: t("architect_delivery_date"),
+    field: "architect_delivery_date",
+    cellDataType: "dateString",
+  },
+  { headerName: t("architect_stop_reason"), field: "architect_stop_reason" },
+  {
+    headerName: t("construction_status"),
+    field: "construction_status",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: progress_status },
+  },
+  { headerName: t("construction_eng"), field: "construction_eng" },
+  {
+    headerName: t("construction_start_date"),
+    field: "construction_start_date",
+    cellDataType: "dateString",
+  },
+  {
+    headerName: t("construction_delivery_date"),
+    field: "construction_delivery_date",
+    cellDataType: "dateString",
+  },
+  {
+    headerName: t("construction_stop_reason"),
+    field: "construction_stop_reason",
+  },
+  {
+    headerName: t("plumbing_status"),
+    field: "plumbing_status",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: progress_status },
+  },
+  { headerName: t("plumbing_eng"), field: "plumbing_eng" },
+  {
+    headerName: t("plumbing_start_date"),
+    field: "plumbing_start_date",
+    cellDataType: "dateString",
+  },
+  {
+    headerName: t("plumbing_delivery_date"),
+    field: "plumbing_delivery_date",
+    cellDataType: "dateString",
+  },
+  { headerName: t("plumbing_stop_reason"), field: "plumbing_stop_reason" },
+  {
+    headerName: t("electrical_status"),
+    field: "electrical_status",
+    cellEditor: "agSelectCellEditor",
+    cellEditorParams: { values: progress_status },
+  },
+  { headerName: t("electrical_eng"), field: "electrical_eng" },
+  {
+    headerName: t("electrical_start_date"),
+    field: "electrical_start_date",
     cellDataType: "dateString",
   },
   {
@@ -386,222 +481,48 @@ const colDef: any = [
     field: "electrical_delivery_date",
     cellDataType: "dateString",
   },
+  { headerName: t("electrical_stop_reason"), field: "electrical_stop_reason" },
   {
-    headerName: t("architectural_drawing_start_date"),
-    field: "architectural_drawing_start_date",
+    headerName: t("receive_final_copy_date"),
+    field: "receive_final_copy_date",
+    cellDataType: "dateString",
+  },
+  { headerName: t("architecture_review"), field: "architecture_review" },
+  { headerName: t("architecture_reviewer"), field: "architecture_reviewer" },
+  { headerName: t("construction_review"), field: "construction_review" },
+  { headerName: t("construction_reviewer"), field: "construction_reviewer" },
+  { headerName: t("plumbing_review"), field: "plumbing_review" },
+  { headerName: t("plumbing_reviewer"), field: "plumbing_reviewer" },
+  { headerName: t("electrical_review"), field: "electrical_review" },
+  { headerName: t("electrical_reviewer"), field: "electrical_reviewer" },
+  {
+    headerName: t("client_received_review_copy_date"),
+    field: "client_received_review_copy_date",
     cellDataType: "dateString",
   },
   {
-    headerName: t("architectural_delivery_date"),
-    field: "architectural_delivery_date",
+    headerName: t("received_review_copy_from_client_date"),
+    field: "received_review_copy_from_client_date",
     cellDataType: "dateString",
   },
+  { headerName: t("corrector_name"), field: "corrector_name" },
   {
-    headerName: t("plumbing_design_start_date"),
-    field: "plumbing_design_start_date",
+    headerName: t("corrector_date"),
+    field: "corrector_date",
     cellDataType: "dateString",
-  },
-  {
-    headerName: t("plan_delivery_date"),
-    field: "plan_delivery_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("modification_price"),
-    field: "modification_price",
-    cellDataType: "number",
   },
 ];
 
-function generateColDef(stageID: number) {
-  // Base columns that are always present
-  let colDef: any = [
-    {
-    headerName: t("project_name"),
-    field: "project_name",
-    width: 250,
-    pinned: "left",
-    headerCheckboxSelection: true,
-    checkboxSelection: true,
-    showDisabledCheckboxes: true,
-  },
-  {
-    headerName: "📁",
-    field: "attachments",
-    cellRenderer: Attachments,
-    width: 55,
-    pinned: "left",
-    cellDataType: "number",
-    editable: false,
-    sortable: false,
-    filter: false,
-  },
-  {
-    headerName: "📩",
-    field: "comments",
-    cellRenderer: MessageCount,
-    width: 55,
-    pinned: "left",
-    cellDataType: "number",
-    editable: false,
-    sortable: false,
-    filter: false,
-  },
-  { headerName: t("design_eng_name"), field: "design_eng_name" },
-  {
-    headerName: t("architectural_status"),
-    field: "architectural_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  {
-    headerName: t("structural_status"),
-    field: "structural_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  {
-    headerName: t("plumbing_status"),
-    field: "plumbing_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  {
-    headerName: t("electrical_status"),
-    field: "electrical_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  { headerName: t("client_phone"), field: "client_phone" },
-  {
-    headerName: t("sketch_approval_date"),
-    field: "sketch_approval_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("columns_approval_date"),
-    field: "columns_approval_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("typeof_follow_up"),
-    field: "typeof_follow_up",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: typeof_follow_up },
-  },
-  { headerName: t("investor_affiliation"), field: "investor_affiliation" },
-  {
-    headerName: t("project_receipt_date"),
-    field: "project_receipt_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("project_type"),
-    field: "project_type",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: project_types },
-  },
-  { headerName: t("land_number"), field: "land_number" },
-  { headerName: t("land_area"), field: "land_area" },
-  { headerName: t("project_location"), field: "project_location" },
-  { headerName: t("project_number"), field: "project_number" },
-  {
-    headerName: t("sketch_design_progress_status"),
-    field: "sketch_design_progress_status",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: sketch_design_progress },
-  },
-  { headerName: t("structural_eng_name"), field: "structural_eng_name" },
-  {
-    headerName: t("structural_design_start_date"),
-    field: "structural_design_start_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("structural_review"),
-    field: "structural_review",
-    cellEditor: "agSelectCellEditor",
-    cellEditorParams: { values: progress_status },
-  },
-  {
-    headerName: t("structural_delivery_date"),
-    field: "structural_delivery_date",
-    cellDataType: "dateString",
-  },
-  { headerName: t("electrical_eng_name"), field: "electrical_eng_name" },
-  {
-    headerName: t("electrical_design_start_date"),
-    field: "electrical_design_start_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("electrical_delivery_date"),
-    field: "electrical_delivery_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("architectural_drawing_start_date"),
-    field: "architectural_drawing_start_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("architectural_delivery_date"),
-    field: "architectural_delivery_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("plumbing_design_start_date"),
-    field: "plumbing_design_start_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("plan_delivery_date"),
-    field: "plan_delivery_date",
-    cellDataType: "dateString",
-  },
-  {
-    headerName: t("modification_price"),
-    field: "modification_price",
-    cellDataType: "number",
-  },
-    // ...
-  ];
-
-  if (stageID == 1) {
-
-  } else if (stageID == 2) {
-    colDef.push({
-      headerName: t("additional_column_1"),
-      field: "additional_field_1" /* ... */,
-    });
-  } else if (stageID == 3) {
-  } else if (stageID == 4) {
-  } else if (stageID == 5) {
-  } else if (stageID == 6) {
-  } else if (stageID == 7) {
-  } else if (stageID == 8) {
-  } else if (stageID == 9) {
-  } else if (stageID == 10) {
-  } else if (stageID == 11) {
-  } else if (stageID == 12) {
-  } else if (stageID == 13) {
-  } else if (stageID == 14) {
-  } else if (stageID == 15) {
-  }
-
-  // Add more conditions as needed
-
-  return colDef;
-}
+const colDef: any = ref([]);
 
 const gridOptions: GridOptions<any> = {
-  columnDefs: colDef,
+  columnDefs: colDef.value,
 
   // EVENTS
 };
 
 let myHeaders = new Headers();
-myHeaders.append("Authorization", `Token ${store.token}`);
+// myHeaders.append("Authorization", `Token ${store.token}`);
 
 const defaultColDef = {
   sortable: true,
@@ -621,16 +542,19 @@ const defaultColDef = {
       redirect: "follow",
     };
 
-    fetch(
-      `https://aljarrash-backend.onrender.com/api/projects/${params.data.id}/`,
-      requestOptions
-    )
+    fetch(`${API_URL}/projects/${params.data.id}/`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error))
       .finally(() => (overlay.value = false));
   },
 };
+
+onBeforeMount(() => {
+  autoSizeStrategy.value = {
+    type: "fitCellContents",
+  };
+});
 
 watch(locale, () => {
   // Function to update the headerName
@@ -702,7 +626,7 @@ const rowData = store.rowData;
 //   value: [],
 // });
 
-const stagesIDs = {
+const stagesIDs: any = {
   sketch: 1,
   sketch_review: 2,
   awaiting_client_approval: 3,
@@ -721,23 +645,27 @@ const stagesIDs = {
 
 onMounted(() => {
   overlay.value = true;
-  fetch(getProjects, {headers: myHeaders})
-    .then((result) => result.json())
-    .then((remoteRowData) =>
-      remoteRowData.filter(
-        (proj: Project) =>
-          proj.stage ==
-          stagesIDs[
-            (selectedStage.value as string[])[0] as keyof typeof stagesIDs
-          ]
-      )
-    )
-    .then((filteredRowData) => (rowData.value = filteredRowData))
-    .then(() => store.setSelectedStage(selectedStage))
-    .finally(() => {
-      overlay.value = false;
-      gridApi.value.autoSizeAllColumns(false);
-    });
+  fetch(`${API_URL}/table_views/${stagesIDs[selectedStage.value]}`, { headers: myHeaders })
+  .then((result) => result.json())
+  .then((remoteRowData) => {
+    colDef.value = allColDef.filter((col: any) => remoteRowData.view.includes(col.field));
+    
+    // Chain the second fetch within the first 'then' block
+    return fetch(`${API_URL}/projects/?stage=${stagesIDs[selectedStage.value]}`, { headers: myHeaders });
+  })
+  .then((result) => result.json())
+  .then((filteredRowData) => {
+    rowData.value = filteredRowData;
+    return store.setSelectedStage(selectedStage);
+  })
+  .finally(() => {
+    overlay.value = false;
+    gridApi.value.autoSizeAllColumns(false);
+  });
+});
+
+watch(colDef, (newValue: any[]) => {
+  gridOptions.columnDefs = newValue;
 });
 
 const onSelectionChanged = () => {
@@ -763,22 +691,24 @@ watch(selectedStage, (newValue, oldValue) => {
   animateStageText.value = true;
   // gridOptions.api?.showLoadingOverlay();
   overlay.value = true;
-  fetch(getProjects, {headers: myHeaders})
-    .then((result) => result.json())
-    .then((remoteRowData) =>
-      remoteRowData.filter(
-        (proj: Project) =>
-          proj.stage ==
-          stagesIDs[(newValue as string[])[0] as keyof typeof stagesIDs]
-      )
-    )
-    .then((filteredRowData) => (rowData.value = filteredRowData))
-    .then(() => store.setSelectedStage(selectedStage))
-    .finally(() => {
-      overlay.value = false;
-      gridApi.value.autoSizeAllColumns(false);
-    });
-
+  console.log(stagesIDs[selectedStage.value]);
+  fetch(`${API_URL}/table_views/${stagesIDs[selectedStage.value]}`)
+  .then((result) => result.json())
+  .then((remoteRowData) => {
+    colDef.value = allColDef.filter((col: any) => remoteRowData.view.includes(col.field));
+    
+    // Chain the second fetch within the first 'then' block
+    return fetch(`${API_URL}/projects/?stage=${stagesIDs[selectedStage.value]}`, { headers: myHeaders });
+  })
+  .then((result) => result.json())
+  .then((filteredRowData) => {
+    rowData.value = filteredRowData;
+    return store.setSelectedStage(selectedStage);
+  })
+  .finally(() => {
+    overlay.value = false;
+    gridApi.value.autoSizeAllColumns(false);
+  });
   setTimeout(() => {
     animateStageText.value = false;
   }, 1000);
@@ -788,7 +718,7 @@ const logout = () => {
   store.setLoggedIn(false);
   store.setToken("");
   router.push({ path: "/login" });
-}
+};
 </script>
 
 <style>
@@ -833,6 +763,7 @@ body {
   animation-duration: 3s;
   animation-iteration-count: infinite;
 }
+
 .pl {
   animation-name: bump;
   animation-timing-function: linear;
@@ -865,35 +796,45 @@ body {
   to {
     transform: translate(0, 0);
   }
+
   44% {
     transform: translate(1.33%, 6.75%);
   }
+
   53% {
     transform: translate(-16.67%, -0.54%);
   }
+
   61% {
     transform: translate(3.66%, -2.46%);
   }
+
   69% {
     transform: translate(-0.59%, 15.27%);
   }
+
   76% {
     transform: translate(-1.92%, -4.68%);
   }
+
   83% {
     transform: translate(9.38%, 0.96%);
   }
+
   90% {
     transform: translate(-4.55%, 1.98%);
   }
 }
+
 @keyframes worm {
   from {
     stroke-dashoffset: 10;
   }
+
   25% {
     stroke-dashoffset: 295;
   }
+
   to {
     stroke-dashoffset: 1165;
   }

@@ -47,6 +47,8 @@ const dialog = ref(false);
 const loading = ref(false);
 const projectName = ref("");
 const projectType = ref("");
+const API_URL = import.meta.env.VITE_API_URL;
+
 const nameRule = [
   (value: string) => {
     if (value) return true;
@@ -79,13 +81,13 @@ const addProject = () => {
     };
 
     fetch(
-      "https://aljarrash-backend.onrender.com/api/projects/",
+      `${API_URL}/projects/`,
       requestOptions
     )
       .then((response) => response.text())
       .then((result) => console.log(result))
       .then(() => {
-        fetch("https://aljarrash-backend.onrender.com/api/projects/")
+        fetch(`${API_URL}/projects/`)
           .then((result) => result.json())
           .then((remoteRowData) =>
             remoteRowData.filter(
