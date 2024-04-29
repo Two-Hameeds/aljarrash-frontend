@@ -46,6 +46,7 @@
                     v-model="file"
                     :rules="fileRules"
                     :disabled="!selectedFileType"
+                    show-size
                     accept="application/pdf"
                     :label="$t('fileInput')"
                     @change=""
@@ -127,10 +128,7 @@ const typeRule = [
 ];
 const fileRules = [
   (file: any) => {
-    if (file.value && file.value[0]) {
-      return true;
-    }
-    return t('chooseFile');
+    return !file || !file.length || file[0].size < 2000000 || t('chooseFile');
   },
         // other rules...
 ];

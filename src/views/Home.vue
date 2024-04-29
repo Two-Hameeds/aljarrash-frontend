@@ -622,10 +622,6 @@ interface Project {
 
 const rowData = store.rowData;
 
-// const rowData: { value: Project[] } = reactive({
-//   value: [],
-// });
-
 const stagesIDs: any = {
   sketch: 1,
   sketch_review: 2,
